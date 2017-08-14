@@ -5,47 +5,50 @@ package com.kuzmych.carbook;
  * yuri.kuzmych@gmail.com
  */
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
-import com.kuzmych.carbook.Adapters.VehicleAdapter;
-import com.kuzmych.carbook.Objects.Vehicle;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.kuzmych.carbook.DB.SQLiteDatabaseHandler;
+import com.kuzmych.carbook.Fragments.MainFragment;
+import com.kuzmych.carbook.Fragments.VehicleFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-	private List<Vehicle> vehicleList = new ArrayList<>();
-	private RecyclerView recyclerView;
-	private VehicleAdapter mAdapter;
+	public SQLiteDatabaseHandler db;
+	MainFragment mainFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+		db = new SQLiteDatabaseHandler(this);
 
-		mAdapter = new VehicleAdapter(vehicleList);
-		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-		recyclerView.setLayoutManager(mLayoutManager);
-		recyclerView.setItemAnimator(new DefaultItemAnimator());
-		recyclerView.setAdapter(mAdapter);
-
-		prepareTestData();
+		if (findViewById(R.id.fragment_container) != null) {
+			if (savedInstanceState != null) {
+				return;
+			}
+			ShowMainFragment();
+		}
 	}
 
-	private void prepareTestData() {
-		Vehicle vehicle;
-		for (int i=0; i<31; i++) {
-			vehicle = new Vehicle("Chevrolet", "Aveo " + i);
-			vehicleList.add(vehicle);
-		}
-		mAdapter.notifyDataSetChanged();
+	public void ShowMainFragment() {
+		mainFragment = new MainFragment();
+		mainFragment.setArguments(getIntent().getExtras());
+		getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mainFragment).commit();
+	}
+
+	public void ShowVehicleFragment(VehicleFragment.Action action, int vehicle_id) {
+		VehicleFragment fragment = VehicleFragment.newInstance(action, vehicle_id);
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		transaction.add(R.id.fragment_container, fragment);
+		transaction.addToBackStack(fragment.TAG);
+		transaction.commit();
+	}
+
+	public void UpdateCarList() {
+		mainFragment.UpdateList();
 	}
 
 }

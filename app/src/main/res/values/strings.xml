@@ -1,3 +1,57 @@
 <resources>
     <string name="app_name">Car Book</string>
+    <string name="action_menu_tittle">Action</string>
+    <string name="toast_item_deleted">Item deleted</string>
+    <string name="toast_item_inserted">New item added</string>
+    <string name="b_add_car">Add Car</string>
+    <string name="ACTION">ACTION</string>
+    <string name="str_add_car">Add Car</string>
+    <string name="str_car">Car</string>
+    <string name="str_edit_car">Edit Car</string>
+    <string name="toast_item_edited">Item edited</string>
+    <string name="title_car">Car</string>
+    <string name="hint_brand">Brand</string>
+    <string name="hint_model">Model</string>
+    <string name="hint_year">Year</string>
+    <string name="hint_engine_power">Engine power</string>
+    <string name="hint_registration_number">Registration number</string>
+
+    <string-array name="car_actions_array">
+        <item>View</item>
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
+
+    <string-array name="car_category_items">
+        <item>Select category</item>
+        <item>Motorcycle</item>
+        <item>Passenger</item>
+        <item>Bus</item>
+        <item>Truck</item>
+        <item>Air</item>
+        <item>Water</item>
+        <item>Space</item>
+    </string-array>
+
+    <string-array name="car_transmission_items">
+        <item>Select transmission</item>
+        <item>Auto</item>
+        <item>Manual</item>
+    </string-array>
+
+    <string-array name="car_drive_wheel_items">
+        <item>Select drive wheel</item>
+        <item>Front Wheel</item>
+        <item>Rear Wheel</item>
+        <item>All Wheel</item>
+    </string-array>
+
+    <string-array name="car_engine_type_items">
+        <item>Select engine type</item>
+        <item>Electric</item>
+        <item>Petrol</item>
+        <item>Gas</item>
+        <item>Diesel</item>
+    </string-array>
+
 </resources>

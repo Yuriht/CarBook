@@ -13,45 +13,47 @@ import java.util.List;
 
 /**
  * Created by Yuri on 13.08.2017.
+ * yuri.kuzmych@gmail.com
  */
 
-public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.MyViewHolder> {
+public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.ViewHolder>{
 
-	private List<Vehicle> vehicleList;
+	private List<Vehicle> items;
 
-	public class MyViewHolder extends RecyclerView.ViewHolder {
+	class ViewHolder extends RecyclerView.ViewHolder {
 		public TextView brand, model;
-
-		public MyViewHolder(View view) {
-			super(view);
-			brand = (TextView) view.findViewById(R.id.textView_brand);
-			model = (TextView) view.findViewById(R.id.textView_model);
+		public ViewHolder(View itemView) {
+			super(itemView);
+			brand = (TextView) itemView.findViewById(R.id.textView_brand);
+			model = (TextView) itemView.findViewById(R.id.textView_model);
 		}
 	}
 
-
-	public VehicleAdapter(List<Vehicle> vehicleList) {
-		this.vehicleList = vehicleList;
+	public VehicleAdapter(List<Vehicle> items) {
+		this.items = items;
 	}
 
 	@Override
-	public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext())
+	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		View view = LayoutInflater.from(parent.getContext())
 				.inflate(R.layout.car_list_row, parent, false);
-
-		return new MyViewHolder(itemView);
+		return new ViewHolder(view);
 	}
 
 	@Override
-	public void onBindViewHolder(MyViewHolder holder, int position) {
-		Vehicle vehicle = vehicleList.get(position);
-		holder.brand.setText(vehicle.getBrand());
-		holder.model.setText(vehicle.getModel());
+	public void onBindViewHolder(ViewHolder holder, int position) {
+		Vehicle item = items.get(position);
+		holder.brand.setText(item.getBrand());
+		holder.model.setText(item.getModel());
 	}
 
 	@Override
 	public int getItemCount() {
-		return vehicleList.size();
+		return items.size();
+	}
+
+	public Vehicle getItem(int position) {
+		return items.get(position);
 	}
 
 }
