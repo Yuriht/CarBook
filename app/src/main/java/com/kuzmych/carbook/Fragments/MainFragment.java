@@ -14,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.kuzmych.carbook.Adapters.DriverAdapter;
 import com.kuzmych.carbook.Adapters.VehicleAdapter;
 import com.kuzmych.carbook.Classes.DividerItemDecoration;
 import com.kuzmych.carbook.Classes.RecyclerClickListener;
 import com.kuzmych.carbook.MainActivity;
+import com.kuzmych.carbook.Objects.Driver;
 import com.kuzmych.carbook.Objects.Vehicle;
 import com.kuzmych.carbook.R;
 
@@ -29,14 +31,23 @@ import java.util.List;
  * yuri.kuzmych@gmail.com
  */
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener{
 
 	private MainActivity mainActivity;
 	private View this_view;
 
+	private enum ListType {Cars, Drivers}
+	private ListType listType = ListType.Cars;
+
 	private List<Vehicle> vehicleList = new ArrayList<>();
+	private List<Driver> driverList = new ArrayList<>();
 	private RecyclerView recyclerView;
-	private VehicleAdapter mAdapter;
+	private VehicleAdapter vehicleAdapter;
+	private DriverAdapter driverAdapter;
+
+	private Button button_Cars;
+	private Button button_Drivers;
+	private Button b_add_car;
 
 	public MainFragment() {
 	}
@@ -52,36 +63,99 @@ public class MainFragment extends Fragment {
 							 Bundle savedInstanceState) {
 		this_view = inflater.inflate(R.layout.fragment_main, container, false);
 
-		//Car List
+		//List
 		recyclerView = (RecyclerView) this_view.findViewById(R.id.recycler_view);
-		mAdapter = new VehicleAdapter(vehicleList);
+		vehicleAdapter = new VehicleAdapter(vehicleList);
+		driverAdapter = new DriverAdapter(driverList);
 		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mainActivity);
 		recyclerView.setLayoutManager(mLayoutManager);
 		recyclerView.addItemDecoration(new DividerItemDecoration(mainActivity, LinearLayoutManager.VERTICAL));
 		recyclerView.setItemAnimator(new DefaultItemAnimator());
-		recyclerView.setAdapter(mAdapter);
+		ListItemClickListener();
 		UpdateList();
 
-		//Car Item ClickListener
+		//Buttons
+		b_add_car = (Button) this_view.findViewById(R.id.button_add_new);
+		button_Cars = (Button) this_view.findViewById(R.id.button_Cars);
+		button_Drivers = (Button) this_view.findViewById(R.id.button_Drivers);
+		b_add_car.setOnClickListener(this);
+		button_Cars.setOnClickListener(this);
+		button_Drivers.setOnClickListener(this);
+		DrawButtons();
+
+		return this_view;
+	}
+
+	//Buttons click
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+
+			case R.id.button_add_new:
+				if (listType == ListType.Cars) { mainActivity.ShowVehicleFragment(VehicleFragment.Action.Add, 0); }
+				if (listType == ListType.Drivers) { mainActivity.ShowDriverFragment(DriverFragment.Action.Add, 0); }
+				break;
+
+			case R.id.button_Cars:
+				listType = ListType.Cars;
+				DrawButtons();
+				UpdateList();
+				break;
+
+			case R.id.button_Drivers:
+				listType = ListType.Drivers;
+				DrawButtons();
+				UpdateList();
+				break;
+
+			default: break;
+		}
+	}
+
+
+	//Reload List
+	public void UpdateList() {
+		switch (listType) {
+			case Cars:
+				vehicleList.clear();
+				vehicleList.addAll(mainActivity.db.getAllVehicles());
+				if (recyclerView.getAdapter() != vehicleAdapter) { recyclerView.setAdapter(vehicleAdapter); }
+				else vehicleAdapter.notifyDataSetChanged();
+				break;
+			case Drivers:
+				driverList.clear();
+				driverList.addAll(mainActivity.db.getAllDrivers());
+				if (recyclerView.getAdapter() != driverAdapter) { recyclerView.setAdapter(driverAdapter); }
+				else driverAdapter.notifyDataSetChanged();
+				break;
+		}
+
+	}
+
+	//List items click
+	private void ListItemClickListener() {
 		recyclerView.addOnItemTouchListener(new RecyclerClickListener(mainActivity, recyclerView, new RecyclerClickListener.ClickListener() {
 			@Override
 			public void onClick(View view, int position) {
-				final Vehicle item = vehicleList.get(position);
+				final int pos = position;
 				new AlertDialog.Builder(mainActivity)
 						.setTitle(R.string.action_menu_tittle)
-						.setItems(R.array.car_actions_array, new DialogInterface.OnClickListener() {
+						.setItems(R.array.list_actions_array, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
 								// The 'which' argument contains the index position of the selected item
 								switch (which){
 									case 0 : 	//View
-										mainActivity.ShowVehicleFragment(VehicleFragment.Action.View, item.getId());
+										if (listType == ListType.Cars) { mainActivity.ShowVehicleFragment(VehicleFragment.Action.View, vehicleList.get(pos).getId()); }
+										if (listType == ListType.Drivers) { mainActivity.ShowDriverFragment(DriverFragment.Action.View, driverList.get(pos).getId()); }
 										break;
 									case 1 : 	//Edit
-										mainActivity.ShowVehicleFragment(VehicleFragment.Action.Edit, item.getId());
+										if (listType == ListType.Cars) { mainActivity.ShowVehicleFragment(VehicleFragment.Action.Edit, vehicleList.get(pos).getId()); }
+										if (listType == ListType.Drivers) { mainActivity.ShowDriverFragment(DriverFragment.Action.Edit, driverList.get(pos).getId()); }
 										break;
 									case 2 : 	//Delete
-										mainActivity.db.deleteVehicle(item);
-										UpdateList();
+										if (listType == ListType.Cars) { mainActivity.db.deleteVehicle(vehicleList.get(pos)); }
+										if (listType == ListType.Drivers) { mainActivity.db.deleteDriver(driverList.get(pos)); }
+											UpdateList();
 										Toast.makeText(mainActivity, R.string.toast_item_deleted, Toast.LENGTH_SHORT).show();
 										break;
 								}
@@ -94,23 +168,23 @@ public class MainFragment extends Fragment {
 
 			}
 		}));
-
-		//AddCar Button
-		Button b_add_car = (Button) this_view.findViewById(R.id.button_add_car);
-		b_add_car.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				mainActivity.ShowVehicleFragment(VehicleFragment.Action.Add, 0);
-			}
-		});
-
-		return this_view;
 	}
 
-	//Reload List
-	public void UpdateList() {
-		vehicleList.clear();
-		vehicleList.addAll(mainActivity.db.getAllVehicles());
-		mAdapter.notifyDataSetChanged();
+	//Draw Top Togle Buttons
+	private void DrawButtons() {
+		switch (listType) {
+			case Cars:
+				button_Cars.setBackgroundColor(getResources().getColor(R.color.togledButtonBG));
+				button_Cars.setTextColor(getResources().getColor(R.color.togledButtonText));
+				button_Drivers.setBackgroundColor(getResources().getColor(R.color.untogledButtonBG));
+				button_Drivers.setTextColor(getResources().getColor(R.color.untogledButtonText));
+				break;
+			case Drivers:
+				button_Cars.setBackgroundColor(getResources().getColor(R.color.untogledButtonBG));
+				button_Cars.setTextColor(getResources().getColor(R.color.untogledButtonText));
+				button_Drivers.setBackgroundColor(getResources().getColor(R.color.togledButtonBG));
+				button_Drivers.setTextColor(getResources().getColor(R.color.togledButtonText));
+				break;
+		}
 	}
 }

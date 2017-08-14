@@ -159,7 +159,7 @@ public class VehicleFragment extends Fragment {
 					Toast.makeText(mainActivity, R.string.toast_item_edited, Toast.LENGTH_SHORT).show();
 					break;
 			}
-			mainActivity.UpdateCarList();
+			mainActivity.UpdateList();
 			getActivity().getSupportFragmentManager().popBackStack();
 		}
 	};

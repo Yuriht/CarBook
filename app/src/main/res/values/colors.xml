@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="togledButtonBG">#036a96</color>
+    <color name="untogledButtonBG">#cfcfcf</color>
+    <color name="togledButtonText">#ffffff</color>
+    <color name="untogledButtonText">#313233</color>
 </resources>

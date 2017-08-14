@@ -16,92 +16,81 @@
         android:id="@+id/textView_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_car"
+        android:text="@string/title_driver"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/editText_brand"
+        android:id="@+id/editText_first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/hint_brand"
+        android:hint="@string/hint_first_name"
         android:maxLines="1"
-        android:nextFocusDown="@+id/editText_model"
+        android:nextFocusDown="@+id/editText_second_name"
         android:singleLine="true"/>
 
     <EditText
-        android:id="@+id/editText_model"
+        android:id="@+id/editText_second_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/hint_model"
+        android:hint="@string/hint_second_name"
         android:maxLines="1"
-        android:nextFocusDown="@+id/editText_year"
+        android:nextFocusDown="@+id/editText_phone_number"
         android:singleLine="true"/>
 
     <EditText
-        android:id="@+id/editText_year"
+        android:id="@+id/editText_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/hint_year"
-        android:inputType="number"
+        android:hint="@string/hint_phone_number"
+        android:inputType="phone"
         android:maxLines="1"
-        android:nextFocusDown="@+id/spinner_category"
+        android:nextFocusDown="@+id/editText_license_number"
         android:singleLine="true"/>
 
-    <Spinner
-        android:id="@+id/spinner_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:entries="@array/car_category_items"
-        android:nextFocusDown="@+id/spinner_transmission"/>
-
-    <Spinner
-        android:id="@+id/spinner_transmission"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:entries="@array/car_transmission_items"
-        android:nextFocusDown="@+id/spinner_drive_wheel"/>
-
-    <Spinner
-        android:id="@+id/spinner_drive_wheel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:entries="@array/car_drive_wheel_items"
-        android:nextFocusDown="@+id/spinner_engine_type"/>
-
-    <Spinner
-        android:id="@+id/spinner_engine_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:entries="@array/car_engine_type_items"
-        android:nextFocusDown="@+id/editText_engine_power"/>
-
     <EditText
-        android:id="@+id/editText_engine_power"
+        android:id="@+id/editText_license_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/hint_engine_power"
-        android:inputType="number"
+        android:hint="@string/hint_license_number"
         android:maxLines="1"
-        android:nextFocusDown="@+id/editText_registration_number"
+        android:nextFocusDown="@+id/editText_license_start_date"
         android:singleLine="true"/>
 
     <EditText
-        android:id="@+id/editText_registration_number"
+        android:id="@+id/editText_license_start_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/hint_registration_number"
+        android:hint="@string/hint_license_start_date"
+        android:inputType="date"
+        android:maxLines="1"
+        android:nextFocusDown="@+id/editText_license_end_date"
+        android:singleLine="true"/>
+
+    <EditText
+        android:id="@+id/editText_license_end_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_license_end_date"
+        android:inputType="date"
+        android:maxLines="1"
+        android:nextFocusDown="@+id/editText_licence_categories"
+        android:singleLine="true"/>
+
+    <EditText
+        android:id="@+id/editText_licence_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_licence_categories"
         android:maxLines="1"
         android:nextFocusDown="@+id/button_save"
         android:singleLine="true"/>

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.kuzmych.carbook.DB.SQLiteDatabaseHandler;
+import com.kuzmych.carbook.Fragments.DriverFragment;
 import com.kuzmych.carbook.Fragments.MainFragment;
 import com.kuzmych.carbook.Fragments.VehicleFragment;
 
@@ -47,8 +48,20 @@ public class MainActivity extends AppCompatActivity {
 		transaction.commit();
 	}
 
-	public void UpdateCarList() {
+	public void ShowDriverFragment(DriverFragment.Action action, int driver_id) {
+		DriverFragment fragment = DriverFragment.newInstance(action, driver_id);
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		transaction.add(R.id.fragment_container, fragment);
+		transaction.addToBackStack(fragment.TAG);
+		transaction.commit();
+	}
+
+	public void UpdateList() {
 		mainFragment.UpdateList();
 	}
 
+
+	//TODO add car-driver link
+	//TODO click default action is view, new buttons on detailed view /edit/ and /delete/
+	//TODO floating add circle button
 }

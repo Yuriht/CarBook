@@ -1,22 +1,41 @@
 <resources>
     <string name="app_name">Car Book</string>
+
+    <string name="str_add">New</string>
+
     <string name="action_menu_tittle">Action</string>
-    <string name="toast_item_deleted">Item deleted</string>
-    <string name="toast_item_inserted">New item added</string>
-    <string name="b_add_car">Add Car</string>
     <string name="ACTION">ACTION</string>
+
     <string name="str_add_car">Add Car</string>
     <string name="str_car">Car</string>
     <string name="str_edit_car">Edit Car</string>
+    <string name="str_add_driver">Add Driver</string>
+    <string name="str_driver">Driver</string>
+    <string name="str_edit_driver">Edit Driver</string>
+
     <string name="toast_item_edited">Item edited</string>
+    <string name="toast_item_deleted">Item deleted</string>
+    <string name="toast_item_inserted">New item added</string>
+
     <string name="title_car">Car</string>
+    <string name="title_driver">Driver</string>
+
     <string name="hint_brand">Brand</string>
     <string name="hint_model">Model</string>
     <string name="hint_year">Year</string>
     <string name="hint_engine_power">Engine power</string>
     <string name="hint_registration_number">Registration number</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_second_name">Second Name</string>
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_license_number">Licence Number</string>
+    <string name="hint_license_start_date">Licence start date</string>
+    <string name="hint_license_end_date">Licence end date</string>
+    <string name="hint_licence_categories">Licence categories</string>
+    <string name="str_cars">Cars</string>
+    <string name="str_drivers">Drivers</string>
 
-    <string-array name="car_actions_array">
+    <string-array name="list_actions_array">
         <item>View</item>
         <item>Edit</item>
         <item>Delete</item>
