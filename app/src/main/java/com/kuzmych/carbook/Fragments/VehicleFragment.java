@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -14,8 +15,12 @@ import android.widget.Toast;
 
 import com.kuzmych.carbook.DB.SQLiteDatabaseHandler;
 import com.kuzmych.carbook.MainActivity;
+import com.kuzmych.carbook.Objects.Driver;
 import com.kuzmych.carbook.Objects.Vehicle;
 import com.kuzmych.carbook.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Yuri on 14.08.2017.
@@ -35,12 +40,15 @@ public class VehicleFragment extends Fragment {
 	private SQLiteDatabaseHandler db;
 	private Action action;
 	private int vehicle_id;
+	private List<Driver> driverList = new ArrayList<>();
+	private ArrayAdapter<Driver> driverAdapter;
 
 	//ui elements
 	private TextView text_title;
 	private EditText editText_brand;
 	private EditText editText_model;
 	private EditText editText_year;
+	private Spinner spinner_driver;
 	private Spinner spinner_category;
 	private Spinner spinner_transmission;
 	private Spinner spinner_drive_wheel;
@@ -80,6 +88,7 @@ public class VehicleFragment extends Fragment {
 		editText_brand = (EditText) this_view.findViewById(R.id.editText_brand);
 		editText_model = (EditText) this_view.findViewById(R.id.editText_model);
 		editText_year = (EditText) this_view.findViewById(R.id.editText_year);
+		spinner_driver = (Spinner) this_view.findViewById(R.id.spinner_driver);
 		spinner_category = (Spinner) this_view.findViewById(R.id.spinner_category);
 		spinner_transmission = (Spinner) this_view.findViewById(R.id.spinner_transmission);
 		spinner_drive_wheel = (Spinner) this_view.findViewById(R.id.spinner_drive_wheel);
@@ -92,6 +101,7 @@ public class VehicleFragment extends Fragment {
 		switch (action){
 			case Add:
 				text_title.setText(R.string.str_add_car);
+				LoadDriverList();
 				break;
 
 			case View:
@@ -100,6 +110,7 @@ public class VehicleFragment extends Fragment {
 				editText_brand.setEnabled(false);
 				editText_model.setEnabled(false);
 				editText_year.setEnabled(false);
+				spinner_driver.setEnabled(false);
 				spinner_category.setEnabled(false);
 				spinner_transmission.setEnabled(false);
 				spinner_drive_wheel.setEnabled(false);
@@ -107,11 +118,13 @@ public class VehicleFragment extends Fragment {
 				editText_engine_power.setEnabled(false);
 				editText_registration_number.setEnabled(false);
 				button_save.setVisibility(View.INVISIBLE);
+				LoadDriverList();
 				GetVehicleData();
 				break;
 
 			case Edit:
 				text_title.setText(R.string.str_edit_car);
+				LoadDriverList();
 				GetVehicleData();
 				break;
 		}
@@ -140,6 +153,7 @@ public class VehicleFragment extends Fragment {
 			String brandStr = editText_brand.getText().toString();
 			String modelStr = editText_model.getText().toString();
 			int yearStr = Integer.parseInt(editText_year.getText().toString());
+			String driverIdStr = String.valueOf(((Driver) spinner_driver.getSelectedItem()).getId());
 			String categoryStr = String.valueOf(spinner_category.getSelectedItemPosition());
 			String transmissionStr = String.valueOf(spinner_transmission.getSelectedItemPosition());
 			String drive_wheelStr = String.valueOf(spinner_drive_wheel.getSelectedItemPosition());
@@ -148,7 +162,7 @@ public class VehicleFragment extends Fragment {
 			String registration_numberStr = editText_registration_number.getText().toString();
 
 			//save
-			Vehicle vehicle = new Vehicle(vehicle_id, brandStr, modelStr, yearStr, categoryStr, transmissionStr, drive_wheelStr, engine_typeStr, engine_powerStr, registration_numberStr);
+			Vehicle vehicle = new Vehicle(vehicle_id, brandStr, modelStr, yearStr, driverIdStr, categoryStr, transmissionStr, drive_wheelStr, engine_typeStr, engine_powerStr, registration_numberStr);
 			switch (action){
 				case Add:
 					mainActivity.db.addVehicle(vehicle);
@@ -168,6 +182,7 @@ public class VehicleFragment extends Fragment {
 		return 	!(editText_brand.length()>0 &&
 		editText_model.length()>0 &&
 		editText_year.length()>0 &&
+		spinner_driver.getSelectedItemPosition()!=0 &&
 		spinner_category.getSelectedItemPosition()!=0 &&
 		spinner_transmission.getSelectedItemPosition()!=0 &&
 		spinner_drive_wheel.getSelectedItemPosition()!=0 &&
@@ -182,12 +197,33 @@ public class VehicleFragment extends Fragment {
 		editText_brand.setText(vehicle.getBrand());
 		editText_model.setText(vehicle.getModel());
 		editText_year.setText(String.valueOf(vehicle.getYear()));
+		SelectSpinnerItemById(spinner_driver, Integer.parseInt(vehicle.getDriverId()));
 		spinner_category.setSelection(Integer.parseInt(vehicle.getCategory()));
 		spinner_transmission.setSelection(Integer.parseInt(vehicle.getTransmission()));
 		spinner_drive_wheel.setSelection(Integer.parseInt(vehicle.getDriveWheel()));
 		spinner_engine_type.setSelection(Integer.parseInt(vehicle.getEngine_Type()));
 		editText_engine_power.setText(String.valueOf(vehicle.getEngine_Power()));
 		editText_registration_number.setText(vehicle.getRegistration_Number());
+	}
+
+	private void LoadDriverList() {
+		Driver first_driver = new Driver("Select", "Driver");
+
+		driverList.clear();
+		driverList.add(first_driver);
+		driverList.addAll(mainActivity.db.getAllDrivers());
+		driverAdapter = new ArrayAdapter<Driver>(this_view.getContext(), R.layout.driver_spiner_item, driverList);
+		spinner_driver.setAdapter(driverAdapter);
+	}
+
+	private void SelectSpinnerItemById(Spinner spinner, int id) {
+		int pos = 0;
+		for (int i=0; i<driverList.size(); i++)
+			if (driverList.get(i).getId() == id) {
+				pos = i;
+				break;
+			}
+		spinner.setSelection(pos);
 	}
 
 }

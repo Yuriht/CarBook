@@ -20,7 +20,7 @@ import java.util.List;
 public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
 
 	//DB
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	private static final String DATABASE_NAME = "CarsData";
 
 	//Tables
@@ -32,6 +32,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
 	private static final String VEHICLE_BRAND = "Brand";
 	private static final String VEHICLE_MODEL = "Model";
 	private static final String VEHICLE_YEAR = "Year";
+	private static final String VEHICLE_DRIVER_ID = "Driver_Id";
 	private static final String VEHICLE_CATEGORY = "Category";
 	private static final String VEHICLE_TRANSMISSION = "Transmission";
 	private static final String VEHICLE_DRIVE_WHEEL = "Drive_Wheel";
@@ -59,6 +60,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
 				+ VEHICLE_BRAND + " TEXT,"
 				+ VEHICLE_MODEL + " TEXT,"
 				+ VEHICLE_YEAR + " INTEGER,"
+				+ VEHICLE_DRIVER_ID + " TEXT,"
 				+ VEHICLE_CATEGORY + " TEXT,"
 				+ VEHICLE_TRANSMISSION + " TEXT,"
 				+ VEHICLE_DRIVE_WHEEL + " TEXT,"
@@ -103,6 +105,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
 		values.put(VEHICLE_BRAND, vehicle.getBrand());
 		values.put(VEHICLE_MODEL, vehicle.getModel());
 		values.put(VEHICLE_YEAR, vehicle.getYear());
+		values.put(VEHICLE_DRIVER_ID, vehicle.getDriverId());
 		values.put(VEHICLE_CATEGORY, vehicle.getCategory());
 		values.put(VEHICLE_TRANSMISSION, vehicle.getTransmission());
 		values.put(VEHICLE_DRIVE_WHEEL, vehicle.getDriveWheel());
@@ -124,6 +127,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
 						VEHICLE_BRAND,
 						VEHICLE_MODEL,
 						VEHICLE_YEAR,
+						VEHICLE_DRIVER_ID,
 						VEHICLE_CATEGORY,
 						VEHICLE_TRANSMISSION,
 						VEHICLE_DRIVE_WHEEL,
@@ -144,8 +148,9 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
 				cursor.getString(5),
 				cursor.getString(6),
 				cursor.getString(7),
-				Integer.parseInt(cursor.getString(8)),
-				cursor.getString(9));
+				cursor.getString(8),
+				Integer.parseInt(cursor.getString(9)),
+				cursor.getString(10));
 		return vehicle;
 	}
 
@@ -181,6 +186,7 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
 		values.put(VEHICLE_BRAND, vehicle.getBrand());
 		values.put(VEHICLE_MODEL, vehicle.getModel());
 		values.put(VEHICLE_YEAR, vehicle.getYear());
+		values.put(VEHICLE_DRIVER_ID, vehicle.getDriverId());
 		values.put(VEHICLE_CATEGORY, vehicle.getCategory());
 		values.put(VEHICLE_TRANSMISSION, vehicle.getTransmission());
 		values.put(VEHICLE_DRIVE_WHEEL, vehicle.getDriveWheel());

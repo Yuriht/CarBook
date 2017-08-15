@@ -44,6 +44,11 @@ public class Driver {
 		Licence_Categories = licence_Categories;
 	}
 
+	@Override
+	public String toString() {
+		return FirstName +" "+ SecondName;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -11,109 +11,119 @@
               android:layout_marginRight="8dp"
               android:layout_marginTop="8dp"
               android:layout_marginBottom="8dp">
-
-    <TextView
-        android:id="@+id/textView_Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_driver"
-        android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:id="@+id/editText_first_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_first_name"
-        android:maxLines="1"
-        android:nextFocusDown="@+id/editText_second_name"
-        android:singleLine="true"/>
-
-    <EditText
-        android:id="@+id/editText_second_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_second_name"
-        android:maxLines="1"
-        android:nextFocusDown="@+id/editText_phone_number"
-        android:singleLine="true"/>
-
-    <EditText
-        android:id="@+id/editText_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_phone_number"
-        android:inputType="phone"
-        android:maxLines="1"
-        android:nextFocusDown="@+id/editText_license_number"
-        android:singleLine="true"/>
-
-    <EditText
-        android:id="@+id/editText_license_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/hint_license_number"
-        android:maxLines="1"
-        android:nextFocusDown="@+id/editText_license_start_date"
-        android:singleLine="true"/>
-
-    <EditText
-        android:id="@+id/editText_license_start_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_license_start_date"
-        android:inputType="date"
-        android:maxLines="1"
-        android:nextFocusDown="@+id/editText_license_end_date"
-        android:singleLine="true"/>
-
-    <EditText
-        android:id="@+id/editText_license_end_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_license_end_date"
-        android:inputType="date"
-        android:maxLines="1"
-        android:nextFocusDown="@+id/editText_licence_categories"
-        android:singleLine="true"/>
-
-    <EditText
-        android:id="@+id/editText_licence_categories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_licence_categories"
-        android:maxLines="1"
-        android:nextFocusDown="@+id/button_save"
-        android:singleLine="true"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <Button
-            android:id="@+id/button_cancel"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel"/>
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Save"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView_Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_driver"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/editText_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_first_name"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/editText_second_name"
+                android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/editText_second_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_second_name"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/editText_phone_number"
+                android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/editText_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_phone_number"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/editText_license_number"
+                android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/editText_license_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/hint_license_number"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/editText_license_start_date"
+                android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/editText_license_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_license_start_date"
+                android:inputType="date"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/editText_license_end_date"
+                android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/editText_license_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_license_end_date"
+                android:inputType="date"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/editText_licence_categories"
+                android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/editText_licence_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_licence_categories"
+                android:maxLines="1"
+                android:nextFocusDown="@+id/button_save"
+                android:singleLine="true"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/button_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancel"/>
+
+                <Button
+                    android:id="@+id/button_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Save"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

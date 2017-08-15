@@ -57,11 +57,10 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void UpdateList() {
-		mainFragment.UpdateList();
+		if (mainFragment != null) mainFragment.UpdateList();
 	}
 
 
-	//TODO add car-driver link
 	//TODO click default action is view, new buttons on detailed view /edit/ and /delete/
 	//TODO floating add circle button
 }

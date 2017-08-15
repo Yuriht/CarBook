@@ -12,6 +12,7 @@ public class Vehicle {
 	private String Model;
 	private int Year;
 
+	private String DriverId;
 	private String Category;
 	private String Transmission;
 	private String DriveWheel;
@@ -33,17 +34,23 @@ public class Vehicle {
 		Model = model;
 	}
 
-	public Vehicle(int id, String brand, String model, int year, String category, String transmission, String driveWheel, String engine_Type, int engine_Power, String registration_Number) {
+	public Vehicle(int id, String brand, String model, int year, String driverid, String category, String transmission, String driveWheel, String engine_Type, int engine_Power, String registration_Number) {
 		this.id = id;
 		Brand = brand;
 		Model = model;
 		Year = year;
+		DriverId = driverid;
 		Category = category;
 		Transmission = transmission;
 		DriveWheel = driveWheel;
 		Engine_Type = engine_Type;
 		Engine_Power = engine_Power;
 		Registration_Number = registration_Number;
+	}
+
+	@Override
+	public String toString() {
+		return Brand +" "+ Model;
 	}
 
 	public int getId() {
@@ -69,6 +76,12 @@ public class Vehicle {
 	}
 	public void setYear(int year) {
 		Year = year;
+	}
+	public String getDriverId() {
+		return DriverId;
+	}
+	public void setDriverId(String driverId) {
+		DriverId = driverId;
 	}
 	public String getCategory() {
 		return Category;
